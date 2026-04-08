@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitBond</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f0f0f;
+  color: white;
+  text-align: center;
+}
+
+/* HERO */
+.hero {
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+.hero p {
+  color: #bbb;
+}
+
+/* INPUT */
+.input-box {
+  margin-top: 20px;
+}
+
+input {
+  padding: 12px;
+  width: 250px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.button {
+  margin: 10px;
+  padding: 12px 25px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary {
+  background: #ff2e63;
+  color: white;
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid #ff2e63;
+  color: #ff2e63;
+}
+
+/* VS */
+.vs-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.player {
+  width: 200px;
+}
+
+.vs {
+  font-size: 50px;
+  margin: 0 30px;
+  color: #ff2e63;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.3); }
+}
+
+/* 血条 */
+.bar {
+  background: #333;
+  height: 10px;
+  border-radius: 5px;
+  margin-top: 8px;
+}
+
+.fill-you {
+  background: #4caf50;
+  width: 70%;
+  height: 10px;
+}
+
+.fill-opponent {
+  background: #ff2e63;
+  width: 85%;
+  height: 10px;
+}
+
+/* 隐藏模块 */
+.hidden {
+  display: none;
+  margin-top: 30px;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 15px;
+  margin: 10px auto;
+  width: 250px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.card:hover {
+  background: #2a2a2a;
+}
+
+.matching {
+  color: #ff2e63;
+  font-size: 18px;
+}
+
+/* 注册提示 */
+.success {
+  color: #4caf50;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Get Your Plan.<br>Win Through Competition.</h1>
+
+  <p>Turn your fitness journey into a competitive game.</p >
+
+  <!-- 注册 -->
+  <div class="input-box">
+    <input type="email" id="email" placeholder="Enter your email">
+    <br>
+    <button class="button primary" onclick="register()">Join Now</button>
+    <p id="successMsg" class="success"></p >
+  </div>
+
+  <button class="button primary" onclick="showMatch()">Find Your Rival</button>
+  <button class="button secondary" onclick="showChallenge()">Start a Challenge</button>
+</div>
+
+<!-- PK人物 -->
+<div class="vs-section">
+
+  <!-- YOU -->
+  <div class="player">
+    <svg width="120" height="160">
+      <circle cx="60" cy="30" r="20" fill="#ffd1a4"/>
+      <rect x="40" y="50" width="40" height="50" fill="#4caf50"/>
+      <rect x="15" y="60" width="30" height="10" fill="#4caf50"/>
+      <rect x="75" y="60" width="30" height="10" fill="#4caf50"/>
+      <rect x="45" y="100" width="10" height="40" fill="#999"/>
+      <rect x="65" y="100" width="10" height="40" fill="#999"/>
+      <circle cx="15" cy="65" r="10" fill="#ff2e63"/>
+      <circle cx="105" cy="65" r="10" fill="#ff2e63"/>
+    </svg>
+    <p>You 🔥</p >
+    <p style="font-size:14px; color:#aaa;">⚔️ Monthly Battles: 12</p >
+
+    <div class="bar">
+      <div class="fill-you"></div>
+    </div>
+  </div>
+
+  <div class="vs">VS</div>
+
+  <!-- ASEN -->
+  <div class="player">
+    <svg width="120" height="160">
+      <circle cx="60" cy="30" r="20" fill="#ffd1a4"/>
+      <rect x="40" y="50" width="40" height="50" fill="#ff2e63"/>
+      <rect x="15" y="60" width="30" height="10" fill="#ff2e63"/>
+      <rect x="75" y="60" width="30" height="10" fill="#ff2e63"/>
+      <rect x="45" y="100" width="10" height="40" fill="#999"/>
+      <rect x="65" y="100" width="10" height="40" fill="#999"/>
+      <circle cx="15" cy="65" r="10" fill="#4caf50"/>
+      <circle cx="105" cy="65" r="10" fill="#4caf50"/>
+    </svg>
+    <p>Asen 😈</p >
+    <p style="font-size:14px; color:#aaa;">⚔️ Monthly Battles: 18</p >
+
+    <div class="bar">
+      <div class="fill-opponent"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 匹配 -->
+<div id="matchSection" class="hidden">
+  <p class="matching">🔍 Matching you with someone at your level...</p >
+</div>
+
+<!-- 挑战 -->
+<div id="challengeSection" class="hidden">
+  <h2>Choose Your Challenge</h2>
+
+  <div class="card">🏃 Steps Competition</div>
+  <div class="card">⏱ Workout Time Battle</div>
+  <div class="card">🔥 Calories Burn</div>
+  <div class="card">⚖️ Weight Loss Duel</div>
+
+  <button class="button primary" onclick="showAvatar()">Next</button>
+</div>
+
+<!-- 角色 -->
+<div id="avatarSection" class="hidden">
+  <h2>Choose Your Fighter</h2>
+
+  <div class="card">🥊 Boxer</div>
+  <div class="card">🏃 Runner</div>
+  <div class="card">⚔️ Warrior</div>
+</div>
+
+<script>
+function showMatch() {
+  document.getElementById("matchSection").style.display = "block";
+}
+
+function showChallenge() {
+  document.getElementById("challengeSection").style.display = "block";
+}
+
+function showAvatar() {
+  document.getElementById("avatarSection").style.display = "block";
+}
+
+/* 注册逻辑 */
+function register() {
+  let email = document.getElementById("email").value;
+  let msg = document.getElementById("successMsg");
+
+  if(email === "") {
+    msg.innerHTML = "Please enter your email.";
+    msg.style.color = "red";
+  } else {
+    msg.innerHTML = "✅ Successfully joined FitBond!";
+    msg.style.color = "#4caf50";
+  }
+}
+</script>
+
+</body>
+</html>
